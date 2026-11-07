@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fleur du Temps 蔓花拾光｜永生花藝工作室</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500&family=Noto+Serif+TC:wght@400;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.1/lucide.min.js"></script>
+<script>tailwind.config={theme:{extend:{colors:{oat:'#F9F6F0',rose:'#D4A5A5',sage:'#9CAF88',char:'#2C2A29',gold:'#C5A059'},fontFamily:{serif:['Playfair Display','Noto Serif TC','serif'],sans:['Noto Sans TC','sans-serif']}}}}</script>
+<style>
+body{background:#F9F6F0;color:#2C2A29;font-family:'Noto Sans TC',sans-serif}
+.btn{background:#C5A059;color:#fff;padding:.7rem 1.5rem;transition:.2s;letter-spacing:.05em}
+.btn:hover{background:#b08c47}.btn-o{border:1px solid #2C2A29;padding:.7rem 1.5rem;transition:.2s}.btn-o:hover{background:#2C2A29;color:#fff}
+.inp{width:100%;border:1px solid #d9d2c3;background:#fff;padding:.55rem .75rem;outline:none}.inp:focus{border-color:#C5A059}
+.tab{padding:.4rem 1rem;border:1px solid #d9d2c3;transition:.2s}.tab.on{background:#2C2A29;color:#fff;border-color:#2C2A29}
+.ov{position:fixed;inset:0;background:rgba(44,42,41,.5);z-index:60;display:none;align-items:center;justify-content:center;padding:1rem}
+.ov.show{display:flex}
+.panel{background:#F9F6F0;max-width:44rem;width:100%;max-height:92vh;overflow:auto;position:relative;animation:pop .25s}
+@keyframes pop{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+#cart{position:fixed;top:0;right:0;height:100%;width:100%;max-width:26rem;background:#F9F6F0;z-index:70;transform:translateX(100%);transition:.3s;display:flex;flex-direction:column}
+#cart.show{transform:none}
+.opt{border:1px solid #d9d2c3;padding:.6rem 1rem;cursor:pointer;transition:.2s;background:#fff}.opt.on,.opt:hover{border-color:#C5A059;background:#faf3e3}
+.fade{animation:pop .5s both}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<!-- 公告欄 -->
+<div class="bg-char text-oat text-center text-sm py-2 px-4 tracking-wider overflow-hidden"><span id="ann" class="transition-opacity duration-500 inline-block"></span></div>
+
+<!-- 導覽列 -->
+<header class="sticky top-0 z-40 bg-oat/95 backdrop-blur border-b border-[#e6dfd0]">
+ <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between gap-4">
+  <a href="#top" class="font-serif text-xl md:text-2xl tracking-wide">Fleur du Temps <span class="text-sm text-[#8a847d]" style="font-family:'Noto Serif TC',serif">蔓花拾光</span></a>
+  <nav class="hidden md:flex gap-8 text-sm"><a href="#shop" class="hover:text-gold">花禮商品</a><a href="#story" class="hover:text-gold">品牌故事</a><a href="#contact" class="hover:text-gold">聯絡我們</a></nav>
+  <div class="flex items-center gap-3">
+   <label class="flex items-center gap-2 text-xs cursor-pointer select-none"><span class="hidden sm:inline">賣場管理模式</span>
+    <input id="adminSw" type="checkbox" class="sr-only peer"><span class="w-9 h-5 bg-[#d9d2c3] rounded-full relative peer-checked:bg-sage transition after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:w-4 after:h-4 after:bg-white after:rounded-full after:transition peer-checked:after:translate-x-4"></span></label>
+   <button id="cartBtn" class="relative p-2" aria-label="購物車"><i data-lucide="shopping-bag"></i><span id="cnt" class="absolute -top-0.5 -right-0.5 bg-gold text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center">0</span></button>
+  </div>
+ </div>
+ <div id="adminBar" class="hidden bg-sage/30 text-sm py-2 px-4 text-center">管理模式已開啟 · <button class="underline" onclick="openAdmin()">新增商品／匯出匯入資料</button></div>
+</header>
+
+<main id="top">
+<!-- Hero -->
+<section class="relative min-h-[78vh] flex items-center">
+ <img src="https://images.unsplash.com/photo-1487530811176-3780de880c2d?auto=format&fit=crop&w=1800&q=80" class="absolute inset-0 w-full h-full object-cover" alt="" onerror="this.style.display='none'">
+ <div class="absolute inset-0 bg-gradient-to-r from-oat via-oat/80 to-transparent"></div>
+ <div class="relative max-w-6xl mx-auto px-4 py-20 fade">
+  <p class="font-serif italic text-gold text-lg mb-3">Fleur du Temps Preserved Flower Atelier</p>
+  <h1 class="font-serif text-4xl md:text-6xl leading-tight max-w-xl" style="font-family:'Noto Serif TC',serif">將瞬間的悸動，<br>凝結成永恆的溫柔</h1>
+  <p class="mt-6 max-w-md text-[#5b5754] leading-relaxed">每一朵花都經過手工脫色、染護與乾燥，保留盛開時的柔軟姿態，一放就是三年以上。</p>
+  <div class="mt-9 flex flex-wrap gap-4"><a href="#shop" class="btn">探索花禮</a><button onclick="openQuiz()" class="btn-o bg-oat/70">專屬花禮測驗</button></div>
+ </div>
+</section>
+
+<!-- 商品 -->
+<section id="shop" class="max-w-6xl mx-auto px-4 py-20">
+ <h2 class="font-serif text-3xl text-center mb-10" style="font-family:'Noto Serif TC',serif">花禮商品</h2>
+ <div class="flex flex-wrap gap-2 justify-center mb-6" id="tabs"></div>
+ <div class="flex flex-col sm:flex-row gap-3 justify-between mb-8">
+  <input id="q" class="inp sm:max-w-xs" placeholder="搜尋商品名稱、花材或標籤">
+  <select id="sort" class="inp sm:max-w-[12rem]"><option value="">預設排序</option><option value="asc">價格：由低到高</option><option value="desc">價格：由高到低</option></select>
+ </div>
+ <div id="grid" class="grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8"></div>
+ <p id="empty" class="hidden text-center text-[#8a847d] py-16">找不到符合的商品，試試其他關鍵字或分類。</p>
+</section>
+
+<!-- 品牌故事 -->
+<section id="story" class="bg-white/60 py-20"><div class="max-w-3xl mx-auto px-4 text-center">
+ <h2 class="font-serif text-3xl mb-6" style="font-family:'Noto Serif TC',serif">為什麼選擇永生花</h2>
+ <p class="leading-loose text-[#5b5754]">Fleur du Temps 取自法語「時光之花」，中文名「蔓花拾光」，意思是讓花開的時光蔓延、被好好收藏。我們只選用 A 級厄瓜多玫瑰、日本進口繡球與乾燥鼠尾草，所有作品由主理人親手設計，並提供免費代寫卡片。花禮不需澆水、不怕過敏，適合送給想把心意留得更久的人。</p>
+ <div class="grid sm:grid-cols-3 gap-6 mt-10 text-sm"><div><i data-lucide="sparkles" class="mx-auto mb-2 text-gold"></i>保存 3 年以上</div><div><i data-lucide="gift" class="mx-auto mb-2 text-gold"></i>免費代寫卡片</div><div><i data-lucide="truck" class="mx-auto mb-2 text-gold"></i>滿 $2,500 免運</div></div>
+</div></section>
+</main>
+
+<footer id="contact" class="py-12 text-center text-sm text-[#5b5754]">
+ <p class="font-serif text-xl tracking-wide text-char mb-3">Fleur du Temps 蔓花拾光</p>
+ <p>接單時間 10:00–19:00（週一公休）｜IG：<a href="https://www.instagram.com/fleur.dutemps/" target="_blank" rel="noopener" class="underline">@fleur.dutemps</a></p>
+ <p class="mt-2">© 2026 Fleur du Temps 蔓花拾光</p>
+</footer>
+
+<!-- 購物車 -->
+<div id="cartMask" class="fixed inset-0 bg-char/40 z-[65] hidden"></div>
+<aside id="cart" aria-label="購物車">
+ <div class="p-5 border-b border-[#e6dfd0] flex justify-between items-center"><h3 class="font-serif text-xl">購物車</h3><button onclick="toggleCart(false)" aria-label="關閉"><i data-lucide="x"></i></button></div>
+ <div id="cartItems" class="flex-1 overflow-auto p-5 space-y-5"></div>
+ <div class="p-5 border-t border-[#e6dfd0] space-y-3 text-sm">
+  <div id="ship" class="text-xs text-[#5b5754]"></div>
+  <div class="flex gap-2"><input id="coupon" class="inp" placeholder="輸入折扣碼（試試 IRENE90）"><button onclick="applyCoupon()" class="btn-o whitespace-nowrap !px-4">套用</button></div>
+  <div id="sum" class="space-y-1"></div>
+  <button onclick="openCheckout()" class="btn w-full">前往結帳</button>
+ </div>
+</aside>
+
+<!-- 通用彈窗 -->
+<div id="modal" class="ov"><div class="panel" id="modalBody"></div></div>
+<div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-char text-oat px-5 py-2 text-sm z-[90] opacity-0 pointer-events-none transition-opacity"></div>
+
+<script>
+/* ---------- 資料 ---------- */
+const U=id=>`https://images.unsplash.com/${id}?auto=format&fit=crop&w=800&q=80`;
+const DEFAULTS=[
+{id:'p1',name:'經典紅玫瑰玻璃盅',cat:'玻璃盅花禮',price:1280,size:'高 18cm｜直徑 12cm',tags:['熱銷'],soldOut:false,imgs:[U('photo-1518895949257-7621c3c786d7'),U('photo-1490750967868-88aa4486c946')],desc:'精選厄瓜多 A 級紅玫瑰，封入玻璃盅，象徵不凋的愛意。',mat:'永生玫瑰、滿天星、霧面玻璃盅',care:'避免陽光直射與潮濕，擺放於室內通風處。',for:['lover','family'],tone:['pink'],ex:'紅色與粉色'},
+{id:'p2',name:'韓式柔霧永生花束',cat:'永生花束',price:1880,size:'花束直徑 28cm',tags:['熱銷','秋季限定'],soldOut:false,imgs:[U('photo-1455659817273-f96807779a8a'),U('photo-1457089328109-e5d9bd499191')],desc:'以韓式包裝手法搭配尤加利與乾燥玫瑰，霧感粉調溫柔質樸。',mat:'永生玫瑰、繡球、尤加利、棉花',care:'請勿碰水，可用吹風機冷風輕吹去塵。',for:['lover','friend','bride'],tone:['pink','neutral'],ex:'霧粉與燕麥'},
+{id:'p3',name:'開幕招財盆花',cat:'開幕桌花',price:2680,size:'寬 35cm｜高 30cm',tags:['開幕首選'],soldOut:false,imgs:[U('photo-1469259943454-aa100abba6d6'),U('photo-1526047932273-341f2a7631f9')],desc:'大器金色盆器搭配橘黃玫瑰與繡球，為新店增添好兆頭。',mat:'永生玫瑰、繡球、金屬花器',care:'置於室內櫃檯或桌面，勿受潮。',for:['business'],tone:['gold'],ex:'金色與暖橘'},
+{id:'p4',name:'浮游花夜燈',cat:'玻璃盅花禮',price:980,size:'高 15cm',tags:['新品'],soldOut:false,imgs:[U('photo-1508610048659-a06b669e3321'),U('photo-1490750967868-88aa4486c946')],desc:'花材懸浮於透明保存液，附 USB 暖光底座，夜晚更顯柔美。',mat:'浮游花、保存液、LED 底座',care:'避免高溫與陽光直射，勿倒置搖晃。',for:['friend','family','lover'],tone:['green','neutral'],ex:'清新綠與白'},
+{id:'p5',name:'白紗森林新娘捧花',cat:'新娘捧花',price:3680,size:'長 30cm｜寬 22cm',tags:['婚禮推薦'],soldOut:false,imgs:[U('photo-1457089328109-e5d9bd499191'),U('photo-1561181286-d3fee7d55364')],desc:'白玫瑰、棉花與乾燥鼠尾草組成輕盈森林系捧花，婚後可永久收藏。',mat:'永生白玫瑰、鼠尾草、棉花、緞帶',care:'婚禮後放入防潮盒或玻璃罩保存。',for:['bride'],tone:['green','neutral'],ex:'白色與綠色'},
+{id:'p6',name:'鼠尾草綠桌上花藝',cat:'開幕桌花',price:1580,size:'寬 25cm｜高 22cm',tags:['秋季限定'],soldOut:false,imgs:[U('photo-1526047932273-341f2a7631f9'),U('photo-1469259943454-aa100abba6d6')],desc:'陶盆搭配鼠尾草綠與乾燥玫瑰粉，適合辦公室或家中擺設。',mat:'永生繡球、乾燥玫瑰、陶盆',care:'請遠離冷氣出風口與潮濕處。',for:['friend','business','family'],tone:['green','pink'],ex:'鼠尾草綠與玫瑰粉'},
+{id:'p7',name:'永生玫瑰小花束',cat:'永生花束',price:880,size:'花束直徑 18cm',tags:['入門款'],soldOut:false,imgs:[U('photo-1490750967868-88aa4486c946'),U('photo-1518895949257-7621c3c786d7')],desc:'七朵迷你玫瑰的小巧花束，適合畢業、生日與日常小驚喜。',mat:'永生迷你玫瑰、滿天星',care:'避免日曬與潮濕。',for:['friend','lover'],tone:['pink','gold'],ex:'粉色與香檳'}
+];
+const COUPONS={IRENE90:{r:.9,t:'9 折'}};
+const FREE=2500,FEE=120,CATS=['全部商品','永生花束','玻璃盅花禮','開幕桌花','新娘捧花'];
+const ANN=['秋季限定永生花禮早鳥 9 折（輸入 IRENE90）','全館滿 $2,500 免運費','免費代寫手寫卡片，把心意寫進花裡'];
+/* 設定：貼上 GAS 網頁應用程式網址（結尾為 /exec）；LINE_URL 請改成工作室的 LINE 連結 */
+const CONFIG={SHEET_URL:'https://script.google.com/macros/s/AKfycbxiIUH3NDZk3Cu3WKFyREm4JUyP5VCdj_KxX04XyLUDBPkD8K8lE61YqAXue00YtrE/exec',LINE_URL:'https://line.me/R/ti/p/@your_line_id'};
+const COLORS=['奶油白','乾燥玫瑰粉','鼠尾草綠','香檳金'];
+
+/* ---------- 工具 ---------- */
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const money=n=>'$'+Math.round(n).toLocaleString();
+let mem={};
+const store={get(k){try{return localStorage.getItem(k)}catch(e){return mem[k]??null}},set(k,v){try{localStorage.setItem(k,v)}catch(e){mem[k]=v}}};
+const icons=()=>window.lucide&&lucide.createIcons();
+const IMG=(src,cls)=>`<img src="${esc(src)}" class="${cls}" loading="lazy" alt="" onerror="this.onerror=null;this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 4 5%22%3E%3Crect width=%224%22 height=%225%22 fill=%22%23ecdcd8%22/%3E%3C/svg%3E'">`;
+function toast(m){const t=$('#toast');t.textContent=m;t.style.opacity=1;clearTimeout(t._h);t._h=setTimeout(()=>t.style.opacity=0,2200)}
+
+/* ---------- 狀態 ---------- */
+let products=JSON.parse(store.get('irene_products')||'null')||DEFAULTS;
+let cart=JSON.parse(store.get('irene_cart')||'[]');
+let state={cat:'全部商品',q:'',sort:'',admin:false,coupon:null};
+const save=()=>{store.set('irene_products',JSON.stringify(products));store.set('irene_cart',JSON.stringify(cart))};
+
+/* ---------- 公告輪播 ---------- */
+let ai=0;const ann=$('#ann');ann.textContent=ANN[0];
+setInterval(()=>{ann.style.opacity=0;setTimeout(()=>{ai=(ai+1)%ANN.length;ann.textContent=ANN[ai];ann.style.opacity=1},500)},4000);
+
+/* ---------- 商品列表 ---------- */
+function renderTabs(){$('#tabs').innerHTML=CATS.map(c=>`<button class="tab ${c===state.cat?'on':''}" onclick="state.cat='${c}';renderTabs();renderGrid()">${c}</button>`).join('')}
+function renderGrid(){
+ let list=products.filter(p=>(state.cat==='全部商品'||p.cat===state.cat)&&(p.name+p.mat+p.desc+p.tags.join('')).toLowerCase().includes(state.q.toLowerCase()));
+ if(state.sort)list=[...list].sort((a,b)=>state.sort==='asc'?a.price-b.price:b.price-a.price);
+ $('#empty').classList.toggle('hidden',list.length>0);
+ $('#grid').innerHTML=list.map(p=>`
+ <article class="group bg-white flex flex-col ${p.soldOut?'opacity-70':''}">
+  <button class="relative block aspect-[4/5] overflow-hidden" onclick="openProduct('${p.id}')" aria-label="查看 ${esc(p.name)}">
+   ${IMG(p.imgs[0],'w-full h-full object-cover transition duration-500 group-hover:scale-105')}
+   <span class="absolute top-2 left-2 flex flex-wrap gap-1">${p.tags.map(t=>`<span class="bg-oat/90 text-[11px] px-2 py-0.5">${esc(t)}</span>`).join('')}</span>
+   ${p.soldOut?'<span class="absolute inset-0 bg-char/50 text-white flex items-center justify-center tracking-widest">已售罄</span>':''}
+  </button>
+  <div class="p-3 md:p-5 flex flex-col flex-1">
+   <h3 class="font-serif text-base md:text-lg" style="font-family:'Noto Serif TC',serif">${esc(p.name)}</h3>
+   <p class="text-xs text-[#8a847d] mt-1">${esc(p.size)}</p>
+   <p class="mt-2 text-gold font-medium">${money(p.price)}</p>
+   <button class="btn mt-3 text-sm disabled:opacity-40 disabled:cursor-not-allowed" ${p.soldOut?'disabled':''} onclick="quickAdd('${p.id}')">${p.soldOut?'已售罄':'加入購物車'}</button>
+   ${state.admin?`<div class="flex gap-2 mt-2 text-xs"><button class="btn-o !p-1.5 flex-1" onclick="toggleSold('${p.id}')">${p.soldOut?'重新上架':'設為售罄'}</button><button class="btn-o !p-1.5 flex-1 hover:!bg-red-700" onclick="delProduct('${p.id}')">刪除</button></div>`:''}
+  </div>
+ </article>`).join('');
+}
+$('#q').oninput=e=>{state.q=e.target.value;renderGrid()};
+$('#sort').onchange=e=>{state.sort=e.target.value;renderGrid()};
+
+/* ---------- 彈窗 ---------- */
+function showModal(html){$('#modalBody').innerHTML=`<button class="absolute top-3 right-3 z-10 bg-oat/80 rounded-full p-1" onclick="closeModal()" aria-label="關閉"><i data-lucide="x"></i></button>`+html;$('#modal').classList.add('show');icons()}
+function closeModal(){$('#modal').classList.remove('show')}
+$('#modal').onclick=e=>{if(e.target.id==='modal')closeModal()};
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeModal();toggleCart(false)}});
+
+/* ---------- 商品詳情 ---------- */
+let cur=null,opt={};
+function openProduct(id){
+ cur=products.find(p=>p.id===id);if(!cur)return;opt={color:COLORS[0],led:false};
+ showModal(`<div class="grid md:grid-cols-2">
+  <div><div class="aspect-[4/5]">${IMG(cur.imgs[0],'w-full h-full object-cover" id="mainImg')}</div>
+   <div class="flex gap-2 p-2">${cur.imgs.map(s=>`<button class="w-16 h-16 border border-[#d9d2c3]" onclick="document.getElementById('mainImg').src='${esc(s)}'">${IMG(s,'w-full h-full object-cover')}</button>`).join('')}</div></div>
+  <div class="p-6 space-y-4 text-sm">
+   <h3 class="font-serif text-2xl" style="font-family:'Noto Serif TC',serif">${esc(cur.name)}</h3>
+   <p class="text-gold text-xl" id="dPrice">${money(cur.price)}</p>
+   <p class="leading-relaxed">${esc(cur.desc)}</p>
+   <dl class="space-y-1 text-[#5b5754]"><div><dt class="inline font-medium text-char">花材：</dt><dd class="inline">${esc(cur.mat)}</dd></div><div><dt class="inline font-medium text-char">尺寸：</dt><dd class="inline">${esc(cur.size)}</dd></div><div><dt class="inline font-medium text-char">保存方式：</dt><dd class="inline">${esc(cur.care)}</dd></div></dl>
+   <div><p class="font-medium mb-2">包裝色系</p><div class="flex flex-wrap gap-2">${COLORS.map((c,i)=>`<button class="opt text-xs ${i?'':'on'}" onclick="opt.color='${c}';document.querySelectorAll('.copt').forEach(b=>b.classList.toggle('on',b===this))" data-c="${c}" ${''}>${c}</button>`).join('').replace(/class="opt/g,'class="copt opt')}</div></div>
+   <label class="opt flex items-center gap-2 cursor-pointer"><input type="checkbox" onchange="opt.led=this.checked;document.getElementById('dPrice').textContent=money(cur.price+(this.checked?100:0))"> 加購 LED 燈串 +$100</label>
+   <div><p class="font-medium mb-2">免費代寫卡片內容</p><textarea id="dCard" rows="2" maxlength="60" class="inp" placeholder="例：生日快樂，願你每天都被溫柔以待（60 字內）"></textarea></div>
+   <button class="btn w-full disabled:opacity-40" ${cur.soldOut?'disabled':''} onclick="addFromModal()">${cur.soldOut?'已售罄':'加入購物車'}</button>
+  </div></div>`);
+}
+function addFromModal(){addToCart(cur.id,{color:opt.color,led:opt.led,card:$('#dCard').value.trim()});closeModal();toggleCart(true)}
+function quickAdd(id){addToCart(id,{color:COLORS[0],led:false,card:''});toast('已加入購物車')}
+
+/* ---------- 購物車 ---------- */
+function addToCart(id,o){
+ const k=[id,o.color,o.led,o.card].join('|');
+ const ex=cart.find(i=>i.k===k);ex?ex.qty++:cart.push({k,id,qty:1,...o});save();renderCart();
+}
+const sub=()=>cart.reduce((s,i)=>{const p=products.find(x=>x.id===i.id);return s+(p?(p.price+(i.led?100:0))*i.qty:0)},0);
+function calc(){const s=sub(),d=state.coupon?Math.round(s*(1-COUPONS[state.coupon].r)):0,after=s-d;return{s,d,after,fee:(after>=FREE||after===0)?0:FEE}}
+function renderCart(){
+ cart=cart.filter(i=>products.find(p=>p.id===i.id));
+ $('#cnt').textContent=cart.reduce((n,i)=>n+i.qty,0);
+ $('#cartItems').innerHTML=cart.length?cart.map(i=>{const p=products.find(x=>x.id===i.id);return`
+  <div class="flex gap-3 text-sm">${IMG(p.imgs[0],'w-20 h-24 object-cover')}
+   <div class="flex-1"><div class="flex justify-between gap-2"><b class="font-medium">${esc(p.name)}</b><button onclick="rm('${esc(i.k)}')" aria-label="移除"><i data-lucide="trash-2" class="w-4 h-4"></i></button></div>
+    <p class="text-xs text-[#8a847d] mt-1">包裝：${esc(i.color)}${i.led?'｜加購 LED 燈串':''}</p>
+    ${i.card?`<p class="text-xs text-[#8a847d]">卡片：${esc(i.card)}</p>`:''}
+    <div class="flex justify-between items-center mt-2"><div class="flex items-center border border-[#d9d2c3]"><button class="px-2" onclick="qty('${esc(i.k)}',-1)">−</button><span class="px-2">${i.qty}</span><button class="px-2" onclick="qty('${esc(i.k)}',1)">＋</button></div><span>${money((p.price+(i.led?100:0))*i.qty)}</span></div></div></div>`}).join(''):'<p class="text-center text-[#8a847d] mt-16">購物車還是空的，去挑一束喜歡的花吧。</p>';
+ const c=calc();
+ $('#ship').innerHTML=c.s===0?'':c.after>=FREE?'已達免運門檻':`再購買 ${money(FREE-c.after)} 即可免運費`;
+ $('#sum').innerHTML=`<div class="flex justify-between"><span>小計</span><span>${money(c.s)}</span></div>${c.d?`<div class="flex justify-between text-sage"><span>折扣碼 ${state.coupon}（${COUPONS[state.coupon].t}）</span><span>−${money(c.d)}</span></div>`:''}<div class="flex justify-between"><span>運費（宅配）</span><span>${c.fee?money(c.fee):'免運'}</span></div><div class="flex justify-between font-medium text-base pt-1 border-t border-[#e6dfd0]"><span>合計</span><span>${money(c.after+c.fee)}</span></div>`;
+ icons();
+}
+function qty(k,d){const i=cart.find(x=>x.k===k);if(!i)return;i.qty+=d;if(i.qty<1)cart=cart.filter(x=>x.k!==k);save();renderCart()}
+function rm(k){cart=cart.filter(x=>x.k!==k);save();renderCart()}
+function applyCoupon(){const v=$('#coupon').value.trim().toUpperCase();if(COUPONS[v]){state.coupon=v;toast('已套用折扣碼 '+v)}else{state.coupon=null;toast('折扣碼無效，請確認後再輸入')}renderCart()}
+function toggleCart(open){$('#cart').classList.toggle('show',open);$('#cartMask').classList.toggle('hidden',!open)}
+$('#cartBtn').onclick=()=>toggleCart(true);$('#cartMask').onclick=()=>toggleCart(false);
+
+/* ---------- 結帳 ---------- */
+function openCheckout(){
+ if(!cart.length){toast('請先加入商品');return}
+ const min=new Date(Date.now()+3*864e5).toISOString().slice(0,10);
+ toggleCart(false);
+ showModal(`<div class="p-6 md:p-8 text-sm space-y-4"><h3 class="font-serif text-2xl" style="font-family:'Noto Serif TC',serif">填寫訂單資料</h3>
+  <p class="text-[#5b5754]">客製花禮需 3 天製作時間，最快可選 ${min} 之後的日期。</p>
+  <div class="grid sm:grid-cols-2 gap-3"><input id="cName" class="inp" placeholder="收件人姓名"><input id="cTel" class="inp" placeholder="聯絡電話"></div>
+  <div class="grid grid-cols-2 gap-3"><label class="opt flex gap-2"><input type="radio" name="ship" value="宅配" checked onchange="shipChg()">宅配（運費 ${money(FEE)}，滿額免運）</label><label class="opt flex gap-2"><input type="radio" name="ship" value="工作室自取" onchange="shipChg()">工作室自取</label></div>
+  <input id="cAddr" class="inp" placeholder="配送地址">
+  <div><label class="block mb-1">期望送達／取貨日期</label><input id="cDate" type="date" min="${min}" class="inp"></div>
+  <textarea id="cNote" rows="2" class="inp" placeholder="備註（選填）"></textarea>
+  <button class="btn w-full" onclick="submitOrder()">送出訂單</button></div>`);
+}
+function shipChg(){const p=document.querySelector('input[name=ship]:checked').value==='工作室自取';$('#cAddr').disabled=p;$('#cAddr').placeholder=p?'自取不需填寫地址':'配送地址'}
+function submitOrder(){
+ const n=$('#cName').value.trim(),t=$('#cTel').value.trim(),m=document.querySelector('input[name=ship]:checked').value,a=$('#cAddr').value.trim(),d=$('#cDate').value;
+ if(!n||!t||!d||(m==='宅配'&&!a)){toast('請填寫姓名、電話、日期，宅配需填地址');return}
+ const c=calc(),fee=m==='宅配'?c.fee:0,total=c.after+fee,id='FT'+new Date().toISOString().slice(2,10).replace(/-/g,'')+Math.floor(1000+Math.random()*9000);
+ const lines=cart.map(i=>{const p=products.find(x=>x.id===i.id);return`・${p.name} ×${i.qty}｜${i.color}${i.led?'｜+LED燈串':''}${i.card?`｜卡片：${i.card}`:''}｜${money((p.price+(i.led?100:0))*i.qty)}`}).join('\n');
+ const text=`【Fleur du Temps 訂單】${id}\n收件人：${n}（${t}）\n方式：${m}${m==='宅配'?'｜'+a:''}\n日期：${d}\n${lines}\n小計：${money(c.s)}${c.d?`\n折扣碼 ${state.coupon}：−${money(c.d)}`:''}\n運費：${fee?money(fee):'免運'}\n應付總額：${money(total)}${$('#cNote').value.trim()?'\n備註：'+$('#cNote').value.trim():''}`;
+ window._order=text;
+ const payload={orderId:id,time:new Date().toISOString(),name:n,tel:t,method:m,address:m==='宅配'?a:'',date:d,note:$('#cNote').value.trim(),
+  items:cart.map(i=>{const p=products.find(x=>x.id===i.id),u=p.price+(i.led?100:0);return{name:p.name,qty:i.qty,color:i.color,led:i.led,card:i.card,unitPrice:u,lineTotal:u*i.qty}}),
+  subtotal:c.s,coupon:c.d?state.coupon:'',discount:c.d,shipping:fee,total:total};
+ sendOrder(payload);
+ showModal(`<div class="p-6 md:p-8 text-sm space-y-4"><h3 class="font-serif text-2xl" style="font-family:'Noto Serif TC',serif">訂單已建立</h3>
+  <p>請複製下方訂單資訊，傳送至官方 LINE 或 Instagram，工作室確認後會提供付款方式。</p><p id="syncMsg" class="text-xs text-[#8a847d]">${CONFIG.SHEET_URL?'訂單紀錄同步中…':''}</p>
+  <pre class="bg-white border border-[#e6dfd0] p-4 whitespace-pre-wrap text-xs leading-relaxed">${esc(text)}</pre>
+  <div class="grid sm:grid-cols-2 gap-3"><button class="btn" onclick="copyGo(CONFIG.LINE_URL)">複製並前往 LINE</button><button class="btn-o" onclick="copyGo('https://www.instagram.com/fleur.dutemps/')">複製並前往 Instagram</button></div></div>`);
+ cart=[];state.coupon=null;save();renderCart();
+}
+async function sendOrder(p){
+ if(!CONFIG.SHEET_URL)return;
+ try{await fetch(CONFIG.SHEET_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(p)});
+  const m=$('#syncMsg');if(m)m.textContent='訂單已傳送至工作室訂單紀錄。'}
+ catch(e){const m=$('#syncMsg');if(m)m.textContent='訂單紀錄同步失敗，請務必複製下方訂單資訊傳給我們。'}
+}
+async function copyGo(url){
+ try{await navigator.clipboard.writeText(window._order)}catch(e){const ta=document.createElement('textarea');ta.value=window._order;document.body.appendChild(ta);ta.select();document.execCommand('copy');ta.remove()}
+ toast('訂單資訊已複製');window.open(url,'_blank','noopener');
+}
+
+/* ---------- 尋花測驗 ---------- */
+const QZ=[
+ {q:'這份花禮要送給誰？',k:'for',o:[['戀人／伴侶','lover'],['朋友／閨蜜','friend'],['家人／長輩','family'],['商務／開幕','business'],['婚禮','bride']]},
+ {q:'你喜歡哪種色系氛圍？',k:'tone',o:[['浪漫粉紅','pink'],['清新綠意','green'],['溫潤燕麥白','neutral'],['華麗金黃','gold']]},
+ {q:'預算大約多少？',k:'budget',o:[['$1,500 以下','a'],['$1,500–3,000','b'],['$3,000 以上','c']]}];
+let qi=0,qa={};
+function openQuiz(){qi=0;qa={};quizStep()}
+function quizStep(){
+ const s=QZ[qi];
+ showModal(`<div class="p-6 md:p-10"><p class="text-xs text-[#8a847d] mb-2">第 ${qi+1} 題／共 ${QZ.length} 題</p><h3 class="font-serif text-2xl mb-6" style="font-family:'Noto Serif TC',serif">${s.q}</h3>
+  <div class="grid gap-3">${s.o.map(([l,v])=>`<button class="opt text-left" onclick="qPick('${s.k}','${v}')">${l}</button>`).join('')}</div></div>`);
+}
+function qPick(k,v){qa[k]=v;qi++;qi<QZ.length?quizStep():quizResult()}
+function quizResult(){
+ const inB=p=>qa.budget==='a'?p.price<=1500:qa.budget==='b'?p.price>1500&&p.price<=3000:p.price>3000;
+ const near=p=>qa.budget==='a'?p.price<=2000:qa.budget==='b'?p.price<=3500:p.price>=2000;
+ const sc=p=>(p.for.includes(qa.for)?3:0)+(p.tone.includes(qa.tone)?2:0)+(inB(p)?2:near(p)?1:0);
+ const r=products.filter(p=>!p.soldOut).map(p=>({p,s:sc(p)})).sort((a,b)=>b.s-a.s).slice(0,2);
+ showModal(`<div class="p-6 md:p-10"><h3 class="font-serif text-2xl mb-2" style="font-family:'Noto Serif TC',serif">為你挑選的花禮</h3><p class="text-sm text-[#5b5754] mb-6">依照送禮對象、色系與預算，推薦以下款式。</p>
+  <div class="grid sm:grid-cols-2 gap-4">${r.length?r.map(({p})=>`<div class="bg-white">${IMG(p.imgs[0],'w-full aspect-[4/5] object-cover')}<div class="p-4 text-sm"><b class="font-medium">${esc(p.name)}</b><p class="text-gold my-1">${money(p.price)}</p><button class="btn w-full mt-2" onclick="openProduct('${p.id}')">查看並客製</button></div></div>`).join(''):'<p>目前沒有可推薦的商品。</p>'}</div>
+  <button class="underline text-sm mt-6" onclick="openQuiz()">重新測驗</button></div>`);
+}
+
+/* ---------- 管理模式 ---------- */
+$('#adminSw').onchange=e=>{state.admin=e.target.checked;$('#adminBar').classList.toggle('hidden',!state.admin);renderGrid();toast(state.admin?'已進入賣場管理模式':'已回到一般瀏覽')};
+function openAdmin(){
+ showModal(`<div class="p-6 md:p-8 text-sm space-y-4"><h3 class="font-serif text-2xl" style="font-family:'Noto Serif TC',serif">商品管理</h3>
+  <div class="grid sm:grid-cols-2 gap-3"><input id="aN" class="inp" placeholder="商品名稱"><select id="aC" class="inp">${CATS.slice(1).map(c=>`<option>${c}</option>`).join('')}</select>
+  <input id="aP" type="number" min="0" class="inp" placeholder="價格（數字）"><input id="aT" class="inp" placeholder="標籤，以逗號分隔（例：熱銷,新品）"></div>
+  <input id="aI" class="inp" placeholder="圖片 URL（https://...）"><input id="aS" class="inp" placeholder="尺寸（例：高 20cm）">
+  <textarea id="aD" rows="2" class="inp" placeholder="商品描述"></textarea>
+  <button class="btn w-full" onclick="addProduct()">新增並上架</button>
+  <hr class="border-[#e6dfd0]"><p class="font-medium">JSON 匯出／匯入</p>
+  <textarea id="aJ" rows="6" class="inp font-mono text-xs">${esc(JSON.stringify(products,null,2))}</textarea>
+  <div class="grid grid-cols-3 gap-2"><button class="btn-o" onclick="$('#aJ').value=JSON.stringify(products,null,2);toast('已更新匯出內容')">重新匯出</button><button class="btn-o" onclick="$('#aJ').select();document.execCommand('copy');toast('已複製 JSON')">複製</button><button class="btn" onclick="importJSON()">匯入覆蓋</button></div>
+  <button class="underline text-xs" onclick="products=DEFAULTS.map(x=>({...x}));save();renderGrid();renderCart();closeModal();toast('已還原預設商品')">還原預設商品</button></div>`);
+}
+function addProduct(){
+ const n=$('#aN').value.trim(),pr=Number($('#aP').value);
+ if(!n||!(pr>0)){toast('請填寫商品名稱與有效價格');return}
+ const img=$('#aI').value.trim()||U('photo-1490750967868-88aa4486c946');
+ products.unshift({id:'p'+Date.now(),name:n,cat:$('#aC').value,price:pr,size:$('#aS').value.trim()||'尺寸請洽詢',tags:$('#aT').value.split(/[,，]/).map(s=>s.trim()).filter(Boolean),soldOut:false,imgs:[img],desc:$('#aD').value.trim()||'手工永生花作品。',mat:'永生花材',care:'避免日曬與潮濕。',for:['friend','lover','family'],tone:['neutral'],ex:''});
+ save();renderGrid();closeModal();toast('商品已上架');
+}
+function importJSON(){
+ try{const d=JSON.parse($('#aJ').value);if(!Array.isArray(d)||!d.every(p=>p.name&&p.price>=0))throw 0;
+  products=d.map((p,i)=>({id:p.id||'p'+Date.now()+i,name:String(p.name),cat:p.cat||'永生花束',price:Number(p.price),size:p.size||'',tags:p.tags||[],soldOut:!!p.soldOut,imgs:p.imgs&&p.imgs.length?p.imgs:[p.img||U('photo-1490750967868-88aa4486c946')],desc:p.desc||'',mat:p.mat||'',care:p.care||'',for:p.for||['friend'],tone:p.tone||['neutral'],ex:p.ex||''}));
+  save();renderGrid();renderCart();closeModal();toast('已匯入 '+products.length+' 款商品')}
+ catch(e){toast('JSON 格式不正確，每項商品至少需有 name 與 price')}
+}
+function toggleSold(id){const p=products.find(x=>x.id===id);p.soldOut=!p.soldOut;save();renderGrid()}
+function delProduct(id){if(confirm('確定刪除此商品？')){products=products.filter(x=>x.id!==id);save();renderGrid();renderCart()}}
+
+/* ---------- 啟動 ---------- */
+renderTabs();renderGrid();renderCart();icons();
+</script>
+</body>
+</html>
